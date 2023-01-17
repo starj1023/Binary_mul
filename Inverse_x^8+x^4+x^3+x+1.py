@@ -27,16 +27,15 @@ def Inverison_Itoh_Tsujii_based(eng) :
     a2 = Reduction(eng, a2)
 
     # (a * a^2) ^64
-    a = Squaring(eng, a, n)
-    a = Squaring(eng, a, n)
-    a = Squaring(eng, a, n)
-    a = Squaring(eng, a, n)
-    a = Squaring(eng, a, n)
-    a = Squaring(eng, a, n) #^64
+    a1 = Squaring(eng, a1, n)
+    a1 = Squaring(eng, a1, n)
+    a1 = Squaring(eng, a1, n)
+    a1 = Squaring(eng, a1, n)
+    a1 = Squaring(eng, a1, n) #^64
 
     count = 0
     a3 = []
-    a3, count, ancilla = recursive_karatsuba(eng, a2, a, n, count, ancilla)
+    a3, count, ancilla = recursive_karatsuba(eng, a2, a1, n, count, ancilla)
     a3 = Reduction(eng, a3)
 
     a2 = Squaring(eng, a2, n)
@@ -409,11 +408,10 @@ classic = ClassicalSimulator()
 eng = MainEngine(classic)
 Inverison_Itoh_Tsujii_based(eng)
 eng.flush()
-print('\n')
 
 resource_check = 1
 NCT = 0
-AND_check = 0
+AND_check = 0 # If AND = 1, the number of qubits must be manually counted.
 Resource = ResourceCounter()
 eng = MainEngine(Resource)
 Inverison_Itoh_Tsujii_based(eng)
